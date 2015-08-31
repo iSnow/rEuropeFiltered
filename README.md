@@ -10,9 +10,19 @@ You need to run a relatively recent FireFox. It may or may not work on another b
 Fire up your FireFox browser. You then need to install GreaseMonkey first and enable it. 
 
 - Navigate to [the download link](https://raw.githubusercontent.com/iSnow/rEuropeFiltered/master/rEuropeFiltered.user.js)
-- Firefox might present you with a yellow bar to ask for permission to download it (![Screenshot](/images/install02.png))
-- There is a separate dialog asking for permission to install it (![Screenshot](/images/install03.png))
-- A little smiling monkey informs you it has been installed (![Screenshot](/images/install05.png))
+- Firefox might present you with a yellow bar to ask for permission to download it 
+
+![Screenshot](/images/install02.png)
+
+- There is a separate dialog asking for permission to install it 
+ 
+![Screenshot](/images/install03.png)
+
+- A little smiling monkey informs you it has been installed 
+
+![Screenshot](/images/install05.png)
 
 ## How to use
-After installation, navigate to /r/europe on reddit. The script will only be active on that subreddit. You'll notice a new button "Add Filter" (![Screenshot](/images/inaction.png)) and if you click this button, a dialog appears where you can define a new filter.
+After installation, navigate to /r/europe on reddit. The script will only be active on that subreddit. You'll notice a new button "Add Filter" and if you click this button, a dialog appears where you can define a new filter.
+
+(![Screenshot](/images/inaction.png)) 
