@@ -1,5 +1,5 @@
 # /r/Europe Filtered
-Plugin for [GreaseMonkey](https://en.wikipedia.org/wiki/Greasemonkey) that adds filter buttons to reddit's /r/Europe to filter out topics by key words. 
+Plugin for [GreaseMonkey](https://en.wikipedia.org/wiki/Greasemonkey) that adds filter buttons to reddit's /r/Europe submission overview pages (hot, new...) to filter out topics by key words. Does nothing while viewing an individual thread.
 
 Since the mods of /r/Europe do not believe in giving users the ability to filter unwanted topics, and since I was thoroughly fed up with how the recent flood of refugee-related links brought out the little bydlo in the normally well-behaved inhabitants of /r/Europe, I decided to code me a little filter. And while I was at it open-source it so others could get at least some peace of mind as well.
 
