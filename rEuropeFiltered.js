@@ -88,7 +88,7 @@ function reuropeAddFilter() {
 	filter.name = document.getElementById("reurope-filtername").value;
 	var color = document.getElementById("reurope-filtercol").value.replace(/#/, '');
 	filter.color = reuropeGetFilterColor (color, reuropeGetFilterIds().length+1);
-	filter.expression = document.getElementById("reurope-filterval").value;
+	filter.expression = document.getElementById("reurope-filterval").value.toLowerCase();
 	reuropeAppendFilterToList(filter);
 	
 	document.getElementById("reurope-dialog").style.display = 'none';
@@ -150,6 +150,12 @@ function reuropeToggleFilterState(event) {
 	}
 
 	localStorage.setItem(filter.id, JSON.stringify(filter));
+	var threadList = document.getElementById('siteTable');
+	var threads = threadList.getElementsByClassName('entry');	
+	for (var i = 0; i < threads.length; i++) {
+		threads[i].parentNode.style.display = 'block';	
+	}
+
 	reuropeFilter();
 }
 
@@ -172,9 +178,9 @@ function reuropeFilter() {
 	for (var i = 0; i < threads.length; i++) {
 		var topicWrap = threads[i].getElementsByClassName('title')[0];
 		var topic = topicWrap.getElementsByClassName('title')[0];	
-		var txt = topic.text;
+		var txt = topic.text.toLowerCase();
 		for (var j = 0; j < allTerms.length; j++) {
-			if (topic.text.indexOf(allTerms[j]) > -1) {
+			if (txt.indexOf(allTerms[j]) > -1) {
 				if (filter.action == 'remove') {
 					threads[i].parentNode.style.display = 'none';
 					nFiltered++;
