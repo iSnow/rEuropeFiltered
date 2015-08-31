@@ -10,15 +10,15 @@ You need to run a relatively recent FireFox. It may or may not work on another b
 Fire up your FireFox browser. You then need to install GreaseMonkey first and enable it. 
 
 - Navigate to [the download link](https://raw.githubusercontent.com/iSnow/rEuropeFiltered/master/rEuropeFiltered.user.js)
-- Firefox might present you with a yellow bar to ask for permission to download it 
+- Firefox might present you with a yellow bar to ask for permission to download it. Give permission.
 
 ![Screenshot](/images/install02.png)
 
-- There is a separate dialog asking for permission to install it 
+- After downloading, there is a separate dialog asking for permission to install it. Click *install*
  
 ![Screenshot](/images/install03.png)
 
-- A little smiling monkey informs you it has been installed 
+- A little smiling monkey informs you it has been installed. The skript is now active.
 
 ![Screenshot](/images/install05.png)
 
