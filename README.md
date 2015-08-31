@@ -23,6 +23,16 @@ Fire up your FireFox browser. You then need to install GreaseMonkey first and en
 ![Screenshot](/images/install05.png)
 
 ## How to use
-After installation, navigate to /r/europe on reddit. The script will only be active on that subreddit. You'll notice a new button "Add Filter" and if you click this button, a dialog appears where you can define a new filter.
+After installation, navigate to /r/europe on reddit. The script will only be active on that subreddit. You'll notice a new button "Add Filter".
 
 (![Screenshot](/images/inaction.png)) 
+
+If you click "Add Filter", a dialog appears where you can define a new filter.
+
+(![Screenshot](/images/filterdefinition.png)) 
+
+The filter definition dialog has the following fields:
+- Filter name: this is the name under which the filter will be listed on the /r/Europe page. You can pick any name you like
+- Filter words: a comma separated lists of words which filter out submissions if they appear in the title. Don't use common words like "and" or a lot of submissions will be gone. If you want to filter out submissions dealing with Russia, use a list like `russia, russian, russians`, if you don't care about sports, use `olympics, soccer, football, world cup`. The script does not care for capitalization.
+- Filter action: leave this alone, you can only set "remove" at this point
+- Filter color: color of the filter button. Leave empty and the script chooses a color.
