@@ -18,7 +18,6 @@
 	if ((tBody != undefined) && (classes.indexOf('listing-page')>-1)) {
 		//localStorage.clear();
 		//reuropeDumpFilters();
-		reuropeFilter();
 		var fContainer = document.createElement("div");
 		fContainer.style.border = "1px solid #DBDADA";
 		fContainer.innerHTML = getrEuropeDialogHtml();
@@ -36,12 +35,20 @@
 		fContainer.appendChild(fList);
 		// make sure user can click OK only after entering a name
 		document.getElementById("reurope-filtername").addEventListener("input", reuropeWatchdog, false);
+		var headline = document.createElement("div");
+		headline.id = "reurope-filters-line";
 		var addBtn = document.createElement("button");
+		headline.appendChild(addBtn);
+		var cntArea = document.createElement("span");
+		cntArea.style.margin = '5px 5px 5px 1em';
+		headline.appendChild(cntArea);
+
 		addBtn.innerHTML = 'Add Filter';
 		addBtn.addEventListener("click", reuropeShowFilterDiag, false);
 		addBtn.style.marginLeft = '2px';
-		fContainer.insertBefore(addBtn, fList);
+		fContainer.insertBefore(headline, fList);
 		reuropeRestoreFilterList();
+		reuropeFilter();
 	}
 
 	
@@ -147,7 +154,7 @@ function reuropeToggleFilterState(event) {
 }
 
 function reuropeFilter() {
-	//reuropeGetThreads();
+	var nFiltered = 0;
 
 	var allTerms = [];
 	var ids = reuropeGetFilterIds();
@@ -170,12 +177,15 @@ function reuropeFilter() {
 			if (topic.text.indexOf(allTerms[j]) > -1) {
 				if (filter.action == 'remove') {
 					threads[i].parentNode.style.display = 'none';
+					nFiltered++;
 				}
 				
 				break;
 			}
 		}
 	}
+	var headline = document.getElementById("reurope-filters-line")
+	headline.getElementsByTagName('span')[0].innerHTML = 'filtered: '+nFiltered;
 }
 
 function reuropeCancel() {
