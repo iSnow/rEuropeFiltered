@@ -1,16 +1,18 @@
 # r/Europe Filtered
 Plugin for [GreaseMonkey](https://en.wikipedia.org/wiki/Greasemonkey) that adds filter buttons to reddit's /r/Europe to filter out topics by key words. 
 
-Since the mods of /r/Europe do not believe giving users the ability to filter unwanted topics, and I was thoroughly fed up with the flood of refugee-related links that brought out the little bydlo in the normally well-behaved inhabitants of /r/Europe, I decided to code me a little filter. And why not open-source it so others could get a peace of mind.
+Since the mods of /r/Europe do not believe in giving users the ability to filter unwanted topics, and since I was thoroughly fed up with how the recent flood of refugee-related links brought out the little bydlo in the normally well-behaved inhabitants of /r/Europe, I decided to code me a little filter. And while I was at it open-source it so others could get at least some peace of mind as well.
 
 ## Prerequisites
 You need to run a relatively recent FireFox. It may or may not work on another browser like Opera, Safari, Internet Explorer or Chrome, but I never tested it on any of those and do not support them *at all*. Likewise it might work with another userscript plugin, but I have never tried and do not care.
+
+If you have some extremely paranoid settings in your adblocker or other security add-on, you might need to allow local storage access so the filters survive a page reload.
 
 ## How to install
 Fire up your FireFox browser. You then need to install GreaseMonkey first and enable it. 
 
 - Navigate to [the download link](https://raw.githubusercontent.com/iSnow/rEuropeFiltered/master/rEuropeFiltered.user.js)
-- Firefox might present you with a yellow bar to ask for permission to download it. Give permission.
+- Firefox might present you with a yellow bar to ask for permission to download it. Give that permission.
 
 ![Screenshot](/images/install02.png)
 
@@ -23,7 +25,7 @@ Fire up your FireFox browser. You then need to install GreaseMonkey first and en
 ![Screenshot](/images/install05.png)
 
 ## How to use
-After installation, navigate to /r/europe on reddit. The script will only be active on that subreddit. You'll notice a new button "Add Filter".
+After installation, navigate to /r/europe on reddit. The script will only be active on that subreddit and will filter out any matching submissions on each page load. You'll notice a new button "Add Filter" right above "Europe".
 
 (![Screenshot](/images/inaction.png)) 
 
