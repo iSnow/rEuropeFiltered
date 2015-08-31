@@ -17,7 +17,7 @@
 	//load only on overview page, not individual threads
 	if ((tBody != undefined) && (classes.indexOf('listing-page')>-1)) {
 		//localStorage.clear();
-		reuropeDumpFilters();
+		//reuropeDumpFilters();
 		reuropeFilter();
 		var fContainer = document.createElement("div");
 		fContainer.style.border = "1px solid #DBDADA";
