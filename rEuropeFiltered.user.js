@@ -182,7 +182,8 @@ function reuropeFilter() {
 		var topic = topicWrap.getElementsByClassName('title')[0];	
 		var txt = topic.text.toLowerCase();
 		for (var j = 0; j < allTerms.length; j++) {
-			if (txt.indexOf(allTerms[j]) > -1) {
+			var regex = new RegExp ("\\b"+allTerms[j]+"\\b","g");
+			if (txt.match(regex) != null) {
 				if (filter.action == 'remove') {
 					threads[i].parentNode.style.display = 'none';
 					nFiltered++;
