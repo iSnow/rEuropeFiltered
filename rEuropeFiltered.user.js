@@ -108,6 +108,8 @@ function reuropeRestoreFilterList() {
 function reuropeAppendFilterToList(filter, numFilters) {
 	var fList = document.getElementById("reurope-filters");
 	var fBtn = document.createElement("div");
+	var expr = filter.expression.replace(/["']/, '');
+	fBtn.setAttribute('title', expr);
 	fBtn.className = 'reurope-filter';
 	fBtn.id = filter.id;
 	fBtn.innerHTML = '<div class="screen active"><span class="reurope-removebtn"><span>x</span></span><span>'+filter.name+'</span></div>';
@@ -116,7 +118,6 @@ function reuropeAppendFilterToList(filter, numFilters) {
 	var removeBtn = document.querySelector("#"+filter.id+">.screen>.reurope-removebtn");
 	removeBtn.addEventListener("click", reuropeRemoveFilter, false);
 	var color = reuropeGetFilterColor (filter.color, numFilters);
-	var expr = '';
 	fBtn.style.background = '#'+color;
 }
 
