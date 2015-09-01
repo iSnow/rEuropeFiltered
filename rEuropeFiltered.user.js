@@ -15,19 +15,20 @@
 	var classes = body.className;	
 	var tBody = document.querySelector(".spacer>.titlebox");
 	//load only on overview page, not individual threads
-	if ((tBody != undefined) && (classes.indexOf('listing-page')>-1)) {
+	if ((tBody) && (classes.indexOf('listing-page')>-1)) {
 		//localStorage.clear();
 		//reuropeDumpFilters();
+		// create and insert our container div
 		var fContainer = document.createElement("div");
 		fContainer.style.border = "1px solid #DBDADA";
 		fContainer.innerHTML = getrEuropeDialogHtml();
 		// attach our container div
 		var hl  = tBody.getElementsByTagName('h1')[0];
 		tBody.insertBefore(fContainer, hl);
-		// add click handlers to cancel btn
+		// create and add click handlers to OK btn
 		var okBtn = document.getElementById("reurope-addfilter");
 		okBtn.addEventListener("click", reuropeAddFilter, false);
-		// add click handlers to cancel btn
+		// create and add click handlers to cancel btn
 		var cBtn = document.getElementById("reurope-cancel");
 		cBtn.addEventListener("click", reuropeCancel, false);
 		var fList = document.createElement("ul");
