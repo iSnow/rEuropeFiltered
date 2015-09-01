@@ -63,7 +63,7 @@
 		cHtml += '<table><tr><td>Filter name</td><td><input id="reurope-filtername" type="text"></td><td></td></tr>';
 		cHtml += '<tr><td>Filter words</td><td><input id="reurope-filterval" type="text"></td><td></td></tr>';
 		cHtml += '<tr><td>Filter action</td><td><select id="reurope-filteraction"><option value="remove">Remove</option></select></td><td></td></tr>';
-		cHtml += '<tr><td>Filter color</td><td><input id="reurope-filtercol" type="color"></td><td>optional</td></tr>';
+		cHtml += '<tr><td>Filter color</td><td><input id="reurope-filtercol" type="color" ></td><td>optional</td></tr>';
 		cHtml += '</table>';
 		cHtml += '<div style="text-align: right; width: 24em"><button id="reurope-cancel">Cancel</button><button disabled id="reurope-addfilter">OK</button></div>';
 		cHtml += '</div>';
@@ -77,6 +77,9 @@ function reuropeWatchdog() {
 }
 
 function reuropeShowFilterDiag() {
+	// default color well to the next color
+	var colInput = document.getElementById("reurope-filtercol");
+	colInput.setAttribute('value', '#'+reuropeGetFilterColor (null, reuropeGetFilterIds().length+1));
 	var fDiag = document.getElementById("reurope-dialog");
 	fDiag.style.display = 'block';
 }
