@@ -90,8 +90,8 @@ function reuropeAddFilter() {
 	filter.action = document.getElementById("reurope-filteraction").value;
 	filter.id = 'reurope-filter-'+new Date().getTime();
 	filter.name = document.getElementById("reurope-filtername").value;
-	var color = document.getElementById("reurope-filtercol").value.replace(/#/, '');
-	filter.color = reuropeGetFilterColor (color, reuropeGetFilterIds().length+1);
+	filter.color = document.getElementById("reurope-filtercol").value.replace(/#/, '');
+	//asylum, refugees, refugee, migrant crisisfilter.color = reuropeGetFilterColor (color, reuropeGetFilterIds().length+1);
 	filter.expression = document.getElementById("reurope-filterval").value.toLowerCase();
 	reuropeAppendFilterToList(filter);
 	
