@@ -8,69 +8,50 @@
 // @grant       none
 // ==/UserScript==
 
+// is run on every page reload
 (function () {
 	injectStyles();
 	
 	var body = document.getElementsByTagName('body')[0];
-	var classes = body.className;	
 	var tBody = document.querySelector(".spacer>.titlebox");
 	//load only on overview page, not individual threads
-	if ((tBody) && (classes.indexOf('listing-page')>-1)) {
+	if ((tBody) && (body.className.indexOf('listing-page')>-1)) {
 		//localStorage.clear();
 		//reuropeDumpFilters();
-		// create and insert our container div
-		var fContainer = document.createElement("div");
-		fContainer.style.border = "1px solid #DBDADA";
-		fContainer.innerHTML = getrEuropeDialogHtml();
-		// attach our container div
-		var hl  = tBody.getElementsByTagName('h1')[0];
-		tBody.insertBefore(fContainer, hl);
+	
+		var fContainer = reuropeCreateFilterContainer(tBody);
+		
 		// create and add click handlers to OK btn
 		var okBtn = document.getElementById("reurope-addfilter");
 		okBtn.addEventListener("click", reuropeAddFilter, false);
+		
 		// create and add click handlers to cancel btn
 		var cBtn = document.getElementById("reurope-cancel");
 		cBtn.addEventListener("click", reuropeCancel, false);
-		var fList = document.createElement("ul");
-		fList.id = "reurope-filters";
-		fContainer.appendChild(fList);
+		
 		// make sure user can click OK only after entering a name
 		document.getElementById("reurope-filtername").addEventListener("input", reuropeWatchdog, false);
-		var headline = document.createElement("div");
-		headline.id = "reurope-filters-line";
+		
+		var headline = document.getElementById("reurope-filters-line");
 		var addBtn = document.createElement("button");
-		headline.appendChild(addBtn);
-		var cntArea = document.createElement("span");
-		cntArea.style.margin = '5px 5px 5px 1em';
-		headline.appendChild(cntArea);
-
 		addBtn.innerHTML = 'Add Filter';
 		addBtn.addEventListener("click", reuropeShowFilterDiag, false);
 		addBtn.style.marginLeft = '2px';
-		fContainer.insertBefore(headline, fList);
+		headline.appendChild(addBtn);
+		
+		// add filter count area
+		var cntArea = document.createElement("span");
+		cntArea.style.margin = '5px 5px 5px 1em';
+		headline.appendChild(cntArea);
+		
+		// restore filters from local storage and filter submissions 
 		reuropeRestoreFilterList();
 		reuropeFilter();
 	}
-
-	
-	function getrEuropeDialogHtml() {
-		var cHtml = '<div id="reurope-dialog" ';
-		cHtml += 'style="position: fixed; left: 0; right: 0; top: 0; bottom: 0; ';
-		cHtml += 'background: rgba(0, 0, 0, 0.2); display: none;" ';
-		cHtml += '>';
-		cHtml += '<div id="reurope-dialog-inner" >';
-		cHtml += '<h3 style="margin-left: 6px">Add a new filter definition</h3>';
-		cHtml += '<table><tr><td>Filter name</td><td><input id="reurope-filtername" type="text"></td><td></td></tr>';
-		cHtml += '<tr><td>Filter words</td><td><input id="reurope-filterval" type="text"></td><td></td></tr>';
-		cHtml += '<tr><td>Filter action</td><td><select id="reurope-filteraction"><option value="remove">Remove</option></select></td><td></td></tr>';
-		cHtml += '<tr><td>Filter color</td><td><input id="reurope-filtercol" type="color" ></td><td>optional</td></tr>';
-		cHtml += '</table>';
-		cHtml += '<div style="text-align: right; width: 24em"><button id="reurope-cancel">Cancel</button><button disabled id="reurope-addfilter">OK</button></div>';
-		cHtml += '</div>';
-		return cHtml;
-	}
 } () );
 
+// make sure OK button is active only after some input 
+// in filter name field
 function reuropeWatchdog() {
 	var okBtn = document.getElementById("reurope-addfilter");
 	okBtn.removeAttribute("disabled"); 
@@ -84,6 +65,13 @@ function reuropeShowFilterDiag() {
 	fDiag.style.display = 'block';
 }
 
+// cancel function, hide filter definition dialog
+function reuropeCancel() {
+	var fDiag = document.getElementById("reurope-dialog");
+	fDiag.style.display = 'none';
+}
+
+// callback from click event listener
 function reuropeAddFilter() {
 	var filter = {};
 	filter.active = true;
@@ -100,6 +88,7 @@ function reuropeAddFilter() {
 	reuropeFilter();
 }
 
+// run on page load
 function reuropeRestoreFilterList() {
 	var fIds = reuropeGetFilterIds();
 	for (var i = 0; i < fIds.length; i++) {
@@ -115,7 +104,11 @@ function reuropeAppendFilterToList(filter, numFilters) {
 	fBtn.setAttribute('title', expr);
 	fBtn.className = 'reurope-filter';
 	fBtn.id = filter.id;
-	fBtn.innerHTML = '<div class="screen active"><span class="reurope-removebtn"><span>x</span></span><span>'+filter.name+'</span></div>';
+	var cssClasses = 'screen';
+	if (filter.active) {
+		cssClasses += ' active';
+	}
+	fBtn.innerHTML = '<div class="'+cssClasses+'"><span class="reurope-removebtn"><span>x</span></span><span>'+filter.name+'</span></div>';
 	fList.appendChild(fBtn);
 	fBtn.addEventListener("click", reuropeToggleFilterState, false);
 	var removeBtn = document.querySelector("#"+filter.id+">.screen>.reurope-removebtn");
@@ -136,6 +129,7 @@ function reuropeRemoveFilter(event) {
 	reuropeFilter();
 }
 
+// make filter active or inactive
 function reuropeToggleFilterState(event) {
 	var node = event.target;
 	while (!node.id) {
@@ -164,6 +158,7 @@ function reuropeToggleFilterState(event) {
 	reuropeFilter();
 }
 
+// main filter function, removes matching submissions
 function reuropeFilter() {
 	var nFiltered = 0;
 
@@ -200,11 +195,7 @@ function reuropeFilter() {
 	headline.getElementsByTagName('span')[0].innerHTML = 'filtered: '+nFiltered;
 }
 
-function reuropeCancel() {
-	var fDiag = document.getElementById("reurope-dialog");
-	fDiag.style.display = 'none';
-}
-
+// currently unused; rolled into reuropeFilter
 function reuropeGetThreads() {
 	var topics = {};
 	var threadList = document.getElementById('siteTable');
@@ -216,6 +207,8 @@ function reuropeGetThreads() {
 	}
 }
 
+// retrieve ID's for all filters from local storage
+// those ID's can be used to find filter buttons
 function reuropeGetFilterIds() {
 	var ids = [];
 	for (var i = 0; i < localStorage.length; i++) {
@@ -227,6 +220,7 @@ function reuropeGetFilterIds() {
 	return ids;
 }
 
+// for debug, print all filter definitions
 function reuropeDumpFilters() {
 	var ids = reuropeGetFilterIds();
 	for (var i = 0; i < ids.length; i++) {
@@ -235,7 +229,7 @@ function reuropeDumpFilters() {
 	}
 }
 
-
+// get filter button color from palette
 function reuropeGetFilterColor (color, index) {
 	cols = reuropeColors();
 	if (!color) {
@@ -247,11 +241,47 @@ function reuropeGetFilterColor (color, index) {
 	return color;
 }
 
+// filter button color palette
 function reuropeColors() {
 	var cols = ['d8e650', 'c8467d', '6242a0', 'ead652', 'eabe52', '377a93', 'ea6c51', '99d64a'];
 	return cols;
 }
 
+// create and insert our container div
+function reuropeCreateFilterContainer(tBody) {
+	var fContainer = document.createElement("div");
+	fContainer.style.border = "1px solid #DBDADA";
+	fContainer.innerHTML = getrEuropeDialogHtml();
+	var fList = document.createElement("ul");
+	fList.id = "reurope-filters";
+	fContainer.appendChild(fList);
+	// attach our container div
+	var hl  = tBody.getElementsByTagName('h1')[0];
+	tBody.insertBefore(fContainer, hl);
+	var headline = document.createElement("div");
+	headline.id = "reurope-filters-line";
+	fContainer.insertBefore(headline, fList);
+	return fContainer;
+}
+
+function getrEuropeDialogHtml() {
+	var cHtml = '<div id="reurope-dialog" ';
+	cHtml += 'style="position: fixed; left: 0; right: 0; top: 0; bottom: 0; ';
+	cHtml += 'background: rgba(0, 0, 0, 0.2); display: none;" ';
+	cHtml += '>';
+	cHtml += '<div id="reurope-dialog-inner" >';
+	cHtml += '<h3 style="margin-left: 6px">Add a new filter definition</h3>';
+	cHtml += '<table><tr><td>Filter name</td><td><input id="reurope-filtername" type="text"></td><td></td></tr>';
+	cHtml += '<tr><td>Filter words</td><td><input id="reurope-filterval" type="text"></td><td></td></tr>';
+	cHtml += '<tr><td>Filter action</td><td><select id="reurope-filteraction"><option value="remove">Remove</option></select></td><td></td></tr>';
+	cHtml += '<tr><td>Filter color</td><td><input id="reurope-filtercol" type="color" ></td><td>optional</td></tr>';
+	cHtml += '</table>';
+	cHtml += '<div style="text-align: right; width: 24em"><button id="reurope-cancel">Cancel</button><button disabled id="reurope-addfilter">OK</button></div>';
+	cHtml += '</div>';
+	return cHtml;
+}
+
+// create a <style> tag and add CSS rules
 function injectStyles() {
 	var head = document.getElementsByTagName('head')[0];
 	if (head) {
