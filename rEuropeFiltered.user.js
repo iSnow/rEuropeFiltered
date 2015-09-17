@@ -4,7 +4,7 @@
 // @description Kill shit with fire
 // @include     http://*.reddit.com/r/europe/*
 // @include     https://*.reddit.com/r/europe/*
-// @version     1
+// @version     2
 // @grant       none
 // ==/UserScript==
 
